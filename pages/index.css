@@ -45,6 +45,7 @@
 @import url(../blocks/popap/popap.css);
 @import url(../blocks/popap/_opened/popap_opened.css);
 @import url(../blocks/popap/__container/popap__container.css);
+@import url(../blocks/popap/__form/popap__form.css);
 @import url(../blocks/popap/__title/popap__title.css);
 @import url(../blocks/popap/__input/popap__input.css);
 @import url(../blocks/popap/__button/popap__button.css);
