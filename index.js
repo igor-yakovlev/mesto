@@ -21,6 +21,7 @@ const descriptionInput = document.querySelector('#description');
 // Функция открытия попапа
 function openPopap () {
   popap.classList.add('popap_opened');
+  // Отключение скролла
   document.body.style.overflow = 'hidden';
   // Добавление данных пользователя в поля ввода
   nameInput.value = userName.innerHTML;
@@ -30,6 +31,7 @@ function openPopap () {
 // Функция закрытия попапа
 function closePopap () {
   popap.classList.remove('popap_opened');
+  // Включение скролла
   document.body.style.overflow = '';
 }
 
