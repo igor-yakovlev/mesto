@@ -1,7 +1,8 @@
 .elements__items {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(213px, 1fr));
+  gap: 17px;
 }
 
 

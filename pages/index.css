@@ -15,6 +15,9 @@
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
 
+/* ==================main====================== */
+@import url(../blocks/main/main.css);
+
 /* ==================profile====================== */
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__info-wrapper/profile__info-wrapper.css);

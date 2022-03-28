@@ -34,3 +34,11 @@
   background-color: #FFFFFF;
   transition: 0.3s all;
 }
+
+@media screen and (max-width: 768px) {
+  .profile__add-button {
+    margin-top: 36px;
+    width: 100%;
+
+  }
+}

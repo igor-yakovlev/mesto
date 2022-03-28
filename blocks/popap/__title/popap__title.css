@@ -3,5 +3,14 @@
   font-size: 24px;
   line-height: 29px;
   color: #000000;
-  margin-bottom: 54px;
+  margin-bottom: 50px;
+}
+
+
+@media screen and (max-width: 560px) {
+  .popap__title {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 71px;
+  }
 }

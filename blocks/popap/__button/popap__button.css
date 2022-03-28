@@ -11,3 +11,11 @@
   background-color: #000000;
   border-radius: 2px;
 }
+
+
+@media screen and (max-width: 560px) {
+  .popap__button {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

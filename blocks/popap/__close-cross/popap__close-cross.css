@@ -1,14 +1,14 @@
 .popap__close-cross {
   cursor: pointer;
   position: absolute;
-  top: -16px;
+  top: -22px;
   right: 0px;
 }
 
 .popap__close-cross::after, .popap__close-cross::before  {
   content: "";
   position: absolute;
-  width: 32px;
+  width: 45px;
   height: 4px;
   background: #FFFFFF;
   transform: rotate(45deg);
@@ -16,4 +16,17 @@
 
 .popap__close-cross::before {
   transform: rotate(-45deg);
+}
+
+
+@media screen and (max-width: 560px) {
+  .popap__close-cross {
+    top: -30px;
+    right: 25px;
+  }
+
+  .popap__close-cross::after, .popap__close-cross::before  {
+    width: 25px;
+    height: 4px;
+  }
 }
