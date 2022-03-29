@@ -60,16 +60,3 @@ window.addEventListener('keydown', (e) => {
 });
 
 form.addEventListener('submit', formSubmitHandler);
-
-
-
-// Иконки like
-const likes = document.querySelectorAll('.element__svg-image');
-
-//Событие заполнения иконки при нажатии
-likes.forEach(like => {
-  like.addEventListener('click', () => {
-    like.classList.toggle('element__svg-image_active');
-  })
-})
-
