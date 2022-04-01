@@ -10,6 +10,12 @@
   border: none;
   background-color: #000000;
   border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.popap__button:hover {
+  opacity: 0.8;
 }
 
 
@@ -17,5 +23,6 @@
   .popap__button {
     font-size: 14px;
     line-height: 17px;
+    min-height: 46px;
   }
 }

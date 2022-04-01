@@ -6,14 +6,15 @@
   padding: 0;
   width: 150px;
   height: 50px;
-  background-color: black;
+  background-color: transparent;
   border: 2px solid #FFFFFF;
+  border-radius: 2px;
   cursor: pointer;
   transition: opacity 0.3s ease;
 }
 
 .profile__add-button:hover {
-  opacity: 0.3;
+  opacity: 0.6;
 }
 
 .profile__add-button::after {
@@ -37,8 +38,18 @@
 
 @media screen and (max-width: 768px) {
   .profile__add-button {
-    margin-top: 36px;
+    margin-top: 32px;
     width: 100%;
+  }
 
+  .profile__add-button::after {
+    transform: rotate(-90deg);
+    width: 16px;
+    height: 2px;
+  }
+
+  .profile__add-button::before {
+    width: 16px;
+    height: 2px;
   }
 }

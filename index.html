@@ -26,80 +26,80 @@
             <div class="profile__info">
               <div class="profile__name-wrapper">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <button class="profile__edit-button"></button>
+                <button aria-label="Edit profile" type="button" class="profile__edit-button"></button>
               </div>
               <p class="profile__description">Исследователь океана</p>
             </div>
           </div>
-          <button class="profile__add-button"></button>
+          <button aria-label="Add info" type="button" class="profile__add-button"></button>
         </section>
 
         <section class="elements">
           <ul class="elements__items">
-            <li class="elements__item">
+            <li class="card">
               <img
                 src="./images/elements/__item/karachaevsk.jpg"
                 alt="Карачаевск"
-                class="elements__image"
+                class="card__image"
               />
-              <div class="elements__info">
-                <h2 class="elements__title">Карачаевск</h2>
-                <button class="elements__like"></button>
+              <div class="card__info">
+                <h2 class="card__title">Карачаевск</h2>
+                <button aria-label="Add like" type="button" class="card__like"></button>
               </div>
             </li>
-            <li class="elements__item">
+            <li class="card">
               <img
                 src="./images/elements/__item/gora_elbrus.png"
                 alt="Гора Эльбрус"
-                class="elements__image"
+                class="card__image"
               />
-              <div class="elements__info">
-                <h2 class="elements__title">Гора Эльбрус</h2>
-                <button class="elements__like"></button>
+              <div class="card__info">
+                <h2 class="card__title">Гора Эльбрус</h2>
+                <button aria-label="Add like" type="button" class="card__like"></button>
               </div>
             </li>
-            <li class="elements__item">
+            <li class="card">
               <img
                 src="./images/elements/__item/dombai.jpg"
                 alt="Домбай"
-                class="elements__image"
+                class="card__image"
               />
-              <div class="elements__info">
-                <h2 class="elements__title">Домбай</h2>
-                <button class="elements__like"></button>
+              <div class="card__info">
+                <h2 class="card__title">Домбай</h2>
+                <button aria-label="Add like" type="button" class="card__like"></button>
               </div>
             </li>
-            <li class="elements__item">
+            <li class="card">
               <img
                 src="./images/elements/__item/adil-sy.jpg"
                 alt="Адыл-Су"
-                class="elements__image"
+                class="card__image"
               />
-              <div class="elements__info">
-                <h2 class="elements__title">Адыл-Су</h2>
-                <button class="elements__like"></button>
+              <div class="card__info">
+                <h2 class="card__title">Адыл-Су</h2>
+                <button aria-label="Add like" type="button" class="card__like"></button>
               </div>
             </li>
-            <li class="elements__item">
+            <li class="card">
               <img
                 src="./images/elements/__item/gori_kavkaz.jpg"
                 alt="Кавказские горы"
-                class="elements__image"
+                class="card__image"
               />
-              <div class="elements__info">
-                <h2 class="elements__title">Кавказские горы</h2>
-                <button class="elements__like"></button>
+              <div class="card__info">
+                <h2 class="card__title">Кавказские горы</h2>
+                <button aria-label="Add like" type="button" class="card__like"></button>
               </div>
             </li>
-            <li class="elements__item">
+            <li class="card">
               <img
                 src="./images/elements/__item/golubie_ozera.jpg"
                 alt="Голубые озера"
-                class="elements__image"
+                class="card__image"
               />
-              <div class="elements__info">
-                <h2 class="elements__title">Голубые озера в Кабардино-Балкарии</h2>
-                <button class="elements__like"></button>
+              <div class="card__info">
+                <h2 class="card__title">Голубые озера в Кабардино-Балкарии</h2>
+                <button aria-label="Add like" type="button" class="card__like"></button>
               </div>
             </li>
           </ul>
@@ -111,16 +111,16 @@
       </footer>
       <div class="popap">
         <div class="popap__container">
-          <form class="popap__form">
-            <div class="popap__close-cross"></div>
-            <h2 class="popap__title">Редактировать профиль</h2>
-            <input type="text" id="name" class="popap__input" placeholder="Имя"/>
-            <input type="text" id="description" class="popap__input" placeholder="О себе"/>
-            <button type="submit" class="popap__button">Сохранить</button>
+          <h2 class="popap__title">Редактировать профиль</h2>
+          <form action="#" method="post" name="popapForm" class="popap__form">
+            <button aria-label="Close popap" type="button" class="popap__close-cross"></button>
+            <input type="text" name="name" id="name" class="popap__input" placeholder="Имя"/>
+            <input type="text" name="description" id="description" class="popap__input" placeholder="О себе"/>
+            <button aria-label="Submit form" type="submit" class="popap__button">Сохранить</button>
           </form>
         </div>
       </div>
     </div>
-    <script src="./index.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>

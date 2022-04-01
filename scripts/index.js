@@ -9,12 +9,13 @@ const userName = document.querySelector('.profile__name');
 // Элемент вывода описания пользователя
 const userDescription = document.querySelector('.profile__description');
 // Форма
-const form = document.querySelector('.popap__form');
+const form = document.forms['popapForm'];
 // Поле ввода имени
 const nameInput = document.querySelector('#name');
 // Поле ввода описания
 const descriptionInput = document.querySelector('#description');
-
+//  Основная страница
+const mainPage = document.querySelector('.page');
 
 
 
@@ -22,22 +23,24 @@ const descriptionInput = document.querySelector('#description');
 function openPopap () {
   popap.classList.add('popap_opened');
   // Отключение скролла
-  document.body.style.overflow = 'hidden';
+  mainPage.classList.add('page_scroll_off');
+  mainPage.classList.remove('page_scroll_on');
   // Добавление данных пользователя в поля ввода
-  nameInput.value = userName.innerHTML;
-  descriptionInput.value = userDescription.innerHTML;
+  nameInput.value = userName.textContent;
+  descriptionInput.value = userDescription.textContent;
 }
 
 // Функция закрытия попапа
 function closePopap () {
   popap.classList.remove('popap_opened');
   // Включение скролла
-  document.body.style.overflow = '';
+  mainPage.classList.add('page_scroll_on');
+  mainPage.classList.remove('page_scroll_off');
 }
 
 
 // Функция добавления данных из формы
-function formSubmitHandler (e) {
+function sendFormData (e) {
   e.preventDefault();
 
   userName.textContent = nameInput.value;
@@ -52,24 +55,6 @@ editButton.addEventListener('click', openPopap);
 // Событие клика для закрытия попапа
 closeButton.addEventListener('click', closePopap);
 
-// Событие нажатия на клавишу для закрытия попапа
-window.addEventListener('keydown', (e) => {
-  if (e.code === 'Escape') {
-    closePopap();
-  }
-});
-
-form.addEventListener('submit', formSubmitHandler);
-
-
-//Кнопка с сердцем
-const likes = document.querySelectorAll('.elements__like');
-
-
-//Событие добавление лайка
-likes.forEach(like => {
-  like.addEventListener('click', () => {
-    like.classList.toggle('elements__like_active');
-  })
-})
+// Событие отправки данных формы
+form.addEventListener('submit', sendFormData);
 
