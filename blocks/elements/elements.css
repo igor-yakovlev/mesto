@@ -4,3 +4,10 @@
   padding-top: 50px;
   padding-bottom: 47px;
 }
+
+@media screen and (max-width: 400px) {
+  .elements {
+    padding-top: 36px;
+  }
+}
+
