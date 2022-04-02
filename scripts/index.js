@@ -22,9 +22,6 @@ const mainPage = document.querySelector('.page');
 // Функция открытия попапа
 function openPopap () {
   popap.classList.add('popap_opened');
-  // Отключение скролла
-  mainPage.classList.add('page_scroll_off');
-  mainPage.classList.remove('page_scroll_on');
   // Добавление данных пользователя в поля ввода
   nameInput.value = userName.textContent;
   descriptionInput.value = userDescription.textContent;
@@ -33,9 +30,6 @@ function openPopap () {
 // Функция закрытия попапа
 function closePopap () {
   popap.classList.remove('popap_opened');
-  // Включение скролла
-  mainPage.classList.add('page_scroll_on');
-  mainPage.classList.remove('page_scroll_off');
 }
 
 

@@ -10,8 +10,6 @@
 /* ==================page====================== */
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/_theme/page_theme_black.css);
-@import url(../blocks/page/_scroll/page_scroll_off.css);
-@import url(../blocks/page/_scroll/page_scroll_on.css);
 
 /* ==================header====================== */
 @import url(../blocks/header/header.css);
