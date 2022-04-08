@@ -43,14 +43,25 @@
       <footer class="footer">
         <p class="footer__copyright">&copy; 2022. Mesto Russia</p>
       </footer>
-      <div class="popap">
+      <div class="popap popap_user-info">
         <div class="popap__container">
           <h2 class="popap__title">Редактировать профиль</h2>
-          <form action="#" method="post" name="popapForm" class="popap__form">
-            <button aria-label="Close popap" type="button" class="popap__close-cross"></button>
+          <form action="#" method="post" name="popapFormUserInfo" class="popap__form">
+            <button aria-label="Close popap" type="button" class="popap__close-cross popap__close-cross_user-info"></button>
             <input type="text" name="name" id="name" class="popap__input" placeholder="Имя"/>
             <input type="text" name="description" id="description" class="popap__input" placeholder="О себе"/>
             <button aria-label="Submit form" type="submit" class="popap__button">Сохранить</button>
+          </form>
+        </div>
+      </div>
+      <div class="popap popap_add-place">
+        <div class="popap__container">
+          <h2 class="popap__title">Новое место</h2>
+          <form action="#" method="post" name="popapFormAddPlace" class="popap__form popap__form_add-place">
+            <button aria-label="Close popap" type="button" class="popap__close-cross popap__close-cross_add-place"></button>
+            <input type="text" name="name" id="name" class="popap__input" placeholder="Название"/>
+            <input type="text" name="link" id="link" class="popap__input" placeholder="Ссылка на картинку"/>
+            <button aria-label="Submit form" type="submit" class="popap__button popap__button_add-place">Создать</button>
           </form>
         </div>
       </div>

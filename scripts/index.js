@@ -1,21 +1,31 @@
-// Кнопка открытия попапа
+// Кнопка открытия попапа данных пользователя
 const editButton = document.querySelector('.profile__edit-button');
-// Кнопка закрытия попапа
-const closeButton = document.querySelector('.popap__close-cross');
-// Попап
-const popap = document.querySelector('.popap');
+// Кнопка закрытия попапа данных пользователя
+const closeButtonUserInfo = document.querySelector('.popap__close-cross_user-info');
+// Кнопка открытия попапа добавления картинки
+const addButton = document.querySelector('.profile__add-button');
+// Кнопка закрытия попапа добавления картинки
+const closeButtonAddPlace = document.querySelector('.popap__close-cross_add-place');
+// Попап данных пользователя
+const popapUserInfo = document.querySelector('.popap_user-info');
+// Попап добавления картинки
+const popapAddPlace = document.querySelector('.popap_add-place');
 // Элемент вывода имени пользователя
 const userName = document.querySelector('.profile__name');
 // Элемент вывода описания пользователя
 const userDescription = document.querySelector('.profile__description');
-// Форма
-const form = document.forms['popapForm'];
+// Форма редактирования данных пользователя
+const formUserInfo = document.forms['popapFormUserInfo'];
 // Поле ввода имени
-const nameInput = document.querySelector('#name');
+const nameInput = formUserInfo.querySelector('#name');
 // Поле ввода описания
-const descriptionInput = document.querySelector('#description');
-//  Основная страница
-const mainPage = document.querySelector('.page');
+const descriptionInput = formUserInfo.querySelector('#description');
+// Форма добавления картинки
+const formAddPlace = document.forms['popapFormAddPlace'];
+// Поле ввода названия
+const nameInputImg = formAddPlace.querySelector('#name');
+// Поле ввода описания
+const linkInput = formAddPlace.querySelector('#link');
 //  Шаблон карточки
 const cardTemplate = document.querySelector('#card').content;
 //Контейнер с карточками
@@ -23,7 +33,7 @@ const cardContainer = document.querySelector('.elements__items');
 
 
 // Функция открытия попапа
-function openPopap () {
+function openPopap (popap) {
   popap.classList.add('popap_opened');
   // Добавление данных пользователя в поля ввода
   nameInput.value = userName.textContent;
@@ -31,50 +41,39 @@ function openPopap () {
 }
 
 // Функция закрытия попапа
-function closePopap () {
+function closePopap (popap) {
   popap.classList.remove('popap_opened');
 }
 
 
-// Функция добавления данных из формы
+// Функция добавления данных из формы для редактирования профиля пользователя
 function sendFormData (e) {
   e.preventDefault();
 
   userName.textContent = nameInput.value;
   userDescription.textContent = descriptionInput.value;
-  closePopap();
+  closePopap(popapUserInfo);
 
 }
 
-// Событие клика для открытия попапа
-editButton.addEventListener('click', openPopap);
 
-// Событие клика для закрытия попапа
-closeButton.addEventListener('click', closePopap);
+// Функция добавления данных из формы для формирования карточки
+function sendFormAddCardPlace (e) {
+  e.preventDefault();
 
-// Событие отправки данных формы
-form.addEventListener('submit', sendFormData);
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  const image = cardElement.querySelector('.card__image');
+  image.src = linkInput.value;
+  const title = cardElement.querySelector('.card__title');
+  title.textContent = nameInputImg.value;
+  cardContainer.prepend(cardElement);
+  closePopap(popapAddPlace);
 
-
+}
 
 
 // Данные для карточек
 const initialCards = [
-  {
-    name: 'Карачаевск',
-    link: './images/elements/__item/karachaevsk.jpg'
-
-  },
-  {
-    name: 'Гора Эльбрус',
-    link: './images/elements/__item/gora_elbrus.png'
-
-  },
-  {
-    name: 'Домбай',
-    link: './images/elements/__item/dombai.jpg'
-
-  },
   {
     name: 'Адыл-Су',
     link: 'https://risk.ru/u/img/319/318712.jpeg'
@@ -119,17 +118,49 @@ const initialCards = [
 // Функция добавления карточки
 function addCard (data) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  cardElement.querySelector('.card__image').src = data.link;
-  cardElement.querySelector('.card__title').textContent = data.name;
-  cardContainer.append(cardElement);
+  const image = cardElement.querySelector('.card__image');
+  image.src = data.link;
+  const title = cardElement.querySelector('.card__title');
+  title.textContent = data.name;
 
+  return cardElement;
 }
 
-
-// Цикл, добавляющий карточки в соответствии с данными
-for (card of initialCards) {
-  addCard(card);
+// Функция отрисовки карточек
+function renderCards () {
+  const html = initialCards.map(addCard);
+  cardContainer.append(...html);
 }
+renderCards();
+
+
+
+// Событие клика для открытия попапа данных пользователя
+editButton.addEventListener('click', () => {
+  openPopap(popapUserInfo);
+});
+
+// Событие клика для закрытия попапа данных пользователя
+closeButtonUserInfo.addEventListener('click', () => {
+  closePopap(popapUserInfo);
+});
+
+// Событие клика для открытия попапа добавления картинки
+addButton.addEventListener('click', () => {
+  openPopap(popapAddPlace);
+});
+
+// Событие клика для закрытия попапа добавления картинки
+closeButtonAddPlace.addEventListener('click', () => {
+  closePopap(popapAddPlace);
+});
+
+// Событие отправки формы данных пользователя
+formUserInfo.addEventListener('submit', sendFormData);
+
+// Событие отправки формы добавления картинки
+formAddPlace.addEventListener('submit', sendFormAddCardPlace);
+
 
 
 
