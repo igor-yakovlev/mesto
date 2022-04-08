@@ -22,7 +22,7 @@ const nameInput = formUserInfo.querySelector('#name');
 const descriptionInput = formUserInfo.querySelector('#description');
 // Форма добавления картинки
 const formAddPlace = document.forms['popapFormAddPlace'];
-// Поле ввода названия
+// Поле ввода названия картинки
 const nameInputImg = formAddPlace.querySelector('#name');
 // Поле ввода описания
 const linkInput = formAddPlace.querySelector('#link');
@@ -30,6 +30,7 @@ const linkInput = formAddPlace.querySelector('#link');
 const cardTemplate = document.querySelector('#card').content;
 //Контейнер с карточками
 const cardContainer = document.querySelector('.elements__items');
+
 
 
 // Функция открытия попапа
@@ -60,16 +61,12 @@ function sendFormData (e) {
 // Функция добавления данных из формы для формирования карточки
 function sendFormAddCardPlace (e) {
   e.preventDefault();
-
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  const image = cardElement.querySelector('.card__image');
-  image.src = linkInput.value;
-  const title = cardElement.querySelector('.card__title');
-  title.textContent = nameInputImg.value;
+  const cardElement = createCard({link: linkInput.value, name: nameInputImg.value})
   cardContainer.prepend(cardElement);
   closePopap(popapAddPlace);
 
 }
+
 
 
 // Данные для карточек
@@ -116,22 +113,40 @@ const initialCards = [
 ];
 
 // Функция добавления карточки
-function addCard (data) {
+function createCard ({link, name}) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const image = cardElement.querySelector('.card__image');
-  image.src = data.link;
   const title = cardElement.querySelector('.card__title');
-  title.textContent = data.name;
+
+  image.src = link;
+  image.alt = name;
+  title.textContent = name;
+
+  // Кнопка добавления лайка
+  like = cardElement.querySelector('.card__like');
+  // Событие добавление лайка на карточке
+  like.addEventListener('click', (e) => {
+    e.target.classList.toggle('card__like_active');
+  });
+
+  del = cardElement.querySelector('.card__delete');
+  // Событие удаления карточки
+  del.addEventListener('click', (e) => {
+    delCard = e.target.closest('.card');
+    delCard.remove();
+  });
+
 
   return cardElement;
 }
 
 // Функция отрисовки карточек
 function renderCards () {
-  const html = initialCards.map(addCard);
+  const html = initialCards.map(createCard);
   cardContainer.append(...html);
 }
 renderCards();
+
 
 
 
@@ -154,6 +169,8 @@ addButton.addEventListener('click', () => {
 closeButtonAddPlace.addEventListener('click', () => {
   closePopap(popapAddPlace);
 });
+
+
 
 // Событие отправки формы данных пользователя
 formUserInfo.addEventListener('submit', sendFormData);
