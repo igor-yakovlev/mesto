@@ -61,32 +61,12 @@ function sendFormData (e) {
 // Функция добавления данных из формы для формирования карточки
 function sendFormAddCardPlace (e) {
   e.preventDefault();
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  const image = cardElement.querySelector('.card__image');
-  image.src = linkInput.value;
-  image.alt = nameInputImg.value;
-  const title = cardElement.querySelector('.card__title');
-  title.textContent = nameInputImg.value;
-
-  // Кнопка добавления лайка
-  const like = cardElement.querySelector('.card__like');
-  // Событие добавление лайка на карточке
-  like.addEventListener('click', (e) => {
-    e.target.classList.toggle('card__like_active');
-  });
-
-  // Кнопка удаления карточки
-  const del = cardElement.querySelector('.card__delete');
-  // Событие удаления карточки
-  del.addEventListener('click', (e) => {
-    e.target.classList.toggle('card__like_active');
-    deleteCard = del;
-  });
-
+  const cardElement = createCard({link: linkInput.value, name: nameInputImg.value});
   cardContainer.prepend(cardElement);
   closePopap(popapAddPlace);
 
 }
+
 
 
 // Данные для карточек
@@ -133,13 +113,14 @@ const initialCards = [
 ];
 
 // Функция добавления карточки
-function addCard (data) {
+function createCard ({link, name}) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const image = cardElement.querySelector('.card__image');
-  image.src = data.link;
-  image.alt = data.name;
   const title = cardElement.querySelector('.card__title');
-  title.textContent = data.name;
+
+  image.src = link;
+  image.alt = name;
+  title.textContent = name;
 
   // Кнопка добавления лайка
   like = cardElement.querySelector('.card__like');
@@ -148,12 +129,20 @@ function addCard (data) {
     e.target.classList.toggle('card__like_active');
   });
 
+  del = cardElement.querySelector('.card__delete');
+  // Событие удаления карточки
+  del.addEventListener('click', (e) => {
+    delCard = e.target.closest('.card');
+    delCard.remove();
+  });
+
+  
   return cardElement;
 }
 
 // Функция отрисовки карточек
 function renderCards () {
-  const html = initialCards.map(addCard);
+  const html = initialCards.map(createCard);
   cardContainer.append(...html);
 }
 renderCards();
