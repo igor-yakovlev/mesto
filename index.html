@@ -59,18 +59,26 @@
           <h2 class="popap__title">Новое место</h2>
           <form action="#" method="post" name="popapFormAddPlace" class="popap__form popap__form_add-place">
             <button aria-label="Close popap" type="button" class="popap__close-cross popap__close-cross_add-place"></button>
-            <input type="text" name="name" id="name" class="popap__input" placeholder="Название"/>
+            <input type="text" name="name" id="namePlace" class="popap__input" placeholder="Название"/>
             <input type="text" name="link" id="link" class="popap__input" placeholder="Ссылка на картинку"/>
             <button aria-label="Submit form" type="submit" class="popap__button popap__button_add-place">Создать</button>
           </form>
         </div>
       </div>
+      <div class="popap popap_image-place">
+        <div class="popap__container popap__container_has-image">
+          <button aria-label="Close popap" type="button" class="popap__close-cross popap__close-cross_image-place"></button>
+          <img src="https://risk.ru/u/img/319/318712.jpeg" alt="" class="popap__image"/>
+          <h2 class="popap__description"></h2>
+        </div>
+
+      </div>
     </div>
     <template id="card">
       <li class="card">
         <img
-          src=""
-          alt=""
+          src="https://risk.ru/u/img/319/318712.jpeg"
+          alt="Адыл-Су"
           class="card__image"
         />
         <button aria-label="Delete card" type="button" class="card__delete"></button>

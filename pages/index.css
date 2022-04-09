@@ -49,10 +49,15 @@
 /* ==================popap====================== */
 @import url(../blocks/popap/popap.css);
 @import url(../blocks/popap/_opened/popap_opened.css);
+@import url(../blocks/popap/_image-place/popap_image-place.css);
 @import url(../blocks/popap/__container/popap__container.css);
+@import url(../blocks/popap/__container/_has-image/popap__container_has-image.css);
 @import url(../blocks/popap/__form/popap__form.css);
 @import url(../blocks/popap/__title/popap__title.css);
 @import url(../blocks/popap/__input/popap__input.css);
 @import url(../blocks/popap/__button/popap__button.css);
 @import url(../blocks/popap/__close-cross/popap__close-cross.css);
+@import url(../blocks/popap/__image/popap__image.css);
+@import url(../blocks/popap/__description/popap__description.css);
+
 
