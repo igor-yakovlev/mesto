@@ -154,7 +154,45 @@ formAddPlace.addEventListener('submit', sendFormAddCardPlace);
 
 
 
+function  editableValidation (formSelector) {
+  const form = document.querySelector(formSelector);
+
+  form.addEventListener('submit', (e) => handleForSubmit(e));
+  form.addEventListener('change', (e) => handleForInput(e));
+}
+
+/**
+ * Обработать событие валидации формы
+ * @param {SubmitEvent} event
+ *
+ */
+
+
+
+function handleForSubmit(e) {
+  e.preventDefault();
+
+  if (form.checkValidity()) {
+    alert('Valid')
+  } else {
+    alert('NotValid')
+  }
+
+}
+
+function handleForInput(e) {
+  e.preventDefault();
+  const input = e.target;
+  const errorNode = document.querySelector(`#${input.id}__error`);
+
+  if (input.validity.valid) {
+    errorNode.textContent = '';
+  } else {
+    errorNode.textContent = input.validationMessage;
+  }
+}
 
 
 
 
+editableValidation('.popap__form_add-place');

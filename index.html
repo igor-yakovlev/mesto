@@ -47,21 +47,37 @@
         <div class="popap__container">
           <h2 class="popap__title">Редактировать профиль</h2>
           <form action="#" method="post" name="popapFormUserInfo" class="popap__form">
-            <button aria-label="Close popap" type="button" class="popap__close-cross popap__close-cross_user-info"></button>
-            <input type="text" name="name" id="name" class="popap__input" placeholder="Имя"/>
-            <input type="text" name="description" id="description" class="popap__input" placeholder="О себе"/>
-            <button aria-label="Submit form" type="submit" class="popap__button">Сохранить</button>
+            <fieldset class="popap__form-set">
+              <button aria-label="Close popap" type="button" class="popap__close-cross popap__close-cross_user-info"></button>
+              <label class="popap__form-field" for="name">
+                <input type="text" name="name" id="name" class="popap__input" placeholder="Имя"/>
+                <span class="popap__error">Error</span>
+              </label>
+              <label class="popap__form-field" for="description">
+                <input type="text" name="description" id="description" class="popap__input" placeholder="О себе"/>
+                <span class="popap__error">Error</span>
+              </label>
+              <button aria-label="Submit form" type="submit" class="popap__button">Сохранить</button>
+            </fieldset>
           </form>
         </div>
       </div>
       <div class="popap popap_add-place">
         <div class="popap__container">
           <h2 class="popap__title">Новое место</h2>
-          <form action="#" method="post" name="popapFormAddPlace" class="popap__form popap__form_add-place">
-            <button aria-label="Close popap" type="button" class="popap__close-cross popap__close-cross_add-place"></button>
-            <input type="text" name="name" id="namePlace" class="popap__input" placeholder="Название"/>
-            <input type="text" name="link" id="link" class="popap__input" placeholder="Ссылка на картинку"/>
-            <button aria-label="Submit form" type="submit" class="popap__button popap__button_add-place">Создать</button>
+          <form action="#" method="post" name="popapFormAddPlace" class="popap__form popap__form_add-place" novalidate>
+            <fieldset class="popap__form-set">
+              <button aria-label="Close popap" type="button" class="popap__close-cross popap__close-cross_add-place"></button>
+              <label class="popap__form-field" for="name">
+                <input type="text" name="name" id="namePlace" class="popap__input" placeholder="Название"/>
+                <span class="popap__error">Error</span>
+              </label>
+              <label class="popap__form-field" for="name">
+                <input type="text" name="link" id="link" class="popap__input" placeholder="Ссылка на картинку"/>
+                <span class="popap__error">Error</span>
+              </label>
+              <button aria-label="Submit form" type="submit" class="popap__button popap__button_add-place">Создать</button>
+            </fieldset>
           </form>
         </div>
       </div>
@@ -90,5 +106,6 @@
     </template>
     <script src="./scripts/initialCards.js"></script>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>

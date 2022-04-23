@@ -1,0 +1,8 @@
+.popap__error {
+  display: block;
+  margin-bottom: 13px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+}

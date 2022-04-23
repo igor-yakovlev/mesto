@@ -59,5 +59,6 @@
 @import url(../blocks/popap/__close-cross/popap__close-cross.css);
 @import url(../blocks/popap/__image/popap__image.css);
 @import url(../blocks/popap/__description/popap__description.css);
-
+@import url(../blocks/popap/__error/popap__error.css);
+@import url(../blocks/popap/__form-set/popap__form-set.css);
 
