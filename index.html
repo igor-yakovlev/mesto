@@ -43,101 +43,101 @@
       <footer class="footer">
         <p class="footer__copyright">&copy; 2022. Mesto Russia</p>
       </footer>
-      <div class="popap popap_user-info">
-        <div class="popap__container">
-          <h2 class="popap__title">Редактировать профиль</h2>
-          <form action="#" method="post" name="popapFormUserInfo" class="popap__form popap__form_user-info">
-            <fieldset class="popap__form-set">
+      <div class="popup popup_user-info">
+        <div class="popup__container">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form action="#" method="post" name="popupFormUserInfo" class="popup__form popup__form_user-info">
+            <fieldset class="popup__form-set">
               <button
-                aria-label="Close popap"
+                aria-label="Close popup"
                 type="button"
-                class="popap__close-cross popap__close-cross_user-info">
+                class="popup__close-cross popup__close-cross_user-info">
               </button>
-              <label class="popap__form-field" for="name">
+              <label class="popup__form-field" for="name">
                 <input
                   type="text"
                   name="name"
                   id="name-input"
-                  class="popap__input"
+                  class="popup__input"
                   placeholder="Имя"
                   required
                   minlength="2"
                   maxlength="40"
                 />
-                <span id="name-input-error" class="popap__error"></span>
+                <span id="name-input-error" class="popup__error"></span>
               </label>
-              <label class="popap__form-field" for="description">
+              <label class="popup__form-field" for="description">
                 <input
                   type="text"
                   name="description"
                   id="description-input"
-                  class="popap__input"
+                  class="popup__input"
                   placeholder="О себе"
                   required
                   minlength="2"
                   maxlength="200"
                 />
-                <span id="description-input-error" class="popap__error"></span>
+                <span id="description-input-error" class="popup__error"></span>
               </label>
               <button
                 aria-label="Submit form"
                 type="submit"
-                class="popap__button">
+                class="popup__button">
                 Сохранить
               </button>
             </fieldset>
           </form>
         </div>
       </div>
-      <div class="popap popap_add-place">
-        <div class="popap__container">
-          <h2 class="popap__title">Новое место</h2>
-          <form action="#" method="post" name="popapFormAddPlace" class="popap__form popap__form_add-place">
-            <fieldset class="popap__form-set">
+      <div class="popup popup_add-place">
+        <div class="popup__container">
+          <h2 class="popup__title">Новое место</h2>
+          <form action="#" method="post" name="popupFormAddPlace" class="popup__form popup__form_add-place">
+            <fieldset class="popup__form-set">
               <button
-                aria-label="Close popap"
+                aria-label="Close popup"
                 type="button"
-                class="popap__close-cross popap__close-cross_add-place">
+                class="popup__close-cross popup__close-cross_add-place">
               </button>
-              <label class="popap__form-field" for="name">
+              <label class="popup__form-field" for="name">
                 <input
                   type="text"
                   name="name"
                   id="name-place-input"
-                  class="popap__input"
+                  class="popup__input"
                   placeholder="Название"
                   required
                   minlength="2"
                   maxlength="30"
                 />
-                <span id="name-place-input-error" class="popap__error"></span>
+                <span id="name-place-input-error" class="popup__error"></span>
               </label>
-              <label class="popap__form-field" for="name">
+              <label class="popup__form-field" for="name">
                 <input
                   type="url"
                   name="link"
                   id="link-input"
-                  class="popap__input"
+                  class="popup__input"
                   placeholder="Ссылка на картинку"
                   required
                 />
-                <span id="link-input-error" class="popap__error"></span>
+                <span id="link-input-error" class="popup__error"></span>
               </label>
               <button
                 aria-label="Submit form"
                 type="submit"
-                class="popap__button popap__button_add-place">
+                class="popup__button popup__button_add-place">
                 Создать
               </button>
             </fieldset>
           </form>
         </div>
       </div>
-      <div class="popap popap_image-place">
-        <div class="popap__container popap__container_has-image">
-          <button aria-label="Close popap" type="button" class="popap__close-cross popap__close-cross_image-place"></button>
-          <img src="https://risk.ru/u/img/319/318712.jpeg" alt="" class="popap__image"/>
-          <h2 class="popap__description"></h2>
+      <div class="popup popup_image-place">
+        <div class="popup__container popup__container_has-image">
+          <button aria-label="Close popup" type="button" class="popup__close-cross popup__close-cross_image-place"></button>
+          <img src="https://risk.ru/u/img/319/318712.jpeg" alt="" class="popup__image"/>
+          <h2 class="popup__description"></h2>
         </div>
 
       </div>

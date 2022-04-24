@@ -1,13 +1,13 @@
 // Функция проверки валидации формы
 function  enableValidation  (config) {
   const form = document.querySelector(config.formSelector);
-  const inputs = form.querySelectorAll(config.formInput);
+  const inputs = form.querySelectorAll(config.inputSelector);
 
   inputs.forEach(input => {
     input.addEventListener('input', (e) => handleForInput(e, config, form));
   });
 
-  toggleButton(form, config.formButton, config.formInput);
+  toggleButton(form, config.submitButtonSelector, config.inputSelector , config.inactiveButtonClass);
 }
 
 // Функция проверки валидации поля формы
@@ -15,11 +15,11 @@ function handleForInput(e, config, form) {
   e.preventDefault();
   const input = e.target;
   if (input.validity.valid) {
-    hideError(input);
+    hideError(input, config.inputErrorClass);
   } else {
-    performError(input);
+    performError(input, config.inputErrorClass);
   }
-  toggleButton(form, config.formButton, config.formInput)
+  toggleButton(form, config.submitButtonSelector, config.inputSelector, config.inactiveButtonClass);
 }
 
 // Функция проверки валидации поля формы
@@ -30,43 +30,50 @@ function hasInvalidInput(inputList) {
 }
 
 // Функция включения и отключения кнопки формы
-function toggleButton (form, formButton, formInput) {
-  const inputList = Array.from(form.querySelectorAll(formInput));
-  const button = form.querySelector(formButton);
+function toggleButton (form, submitButtonSelector, inputSelector, inactiveButtonClass) {
+  const inputList = Array.from(form.querySelectorAll(inputSelector));
+  const button = form.querySelector(submitButtonSelector);
   if (hasInvalidInput(inputList)) {
     button.disabled = true;
-    button.classList.add('popap__button_disabled');
+    button.classList.add(inactiveButtonClass);
   } else {
     button.disabled = false;
-    button.classList.remove('popap__button_disabled');
+    button.classList.remove(inactiveButtonClass);
   }
 }
 
 // Функция включения ошибки полей формы
-function performError (inputElement) {
+function performError (inputElement, inputErrorClass) {
   const errorNode = document.querySelector(`#${inputElement.id}-error`);
   errorNode.textContent = inputElement.validationMessage;
-  inputElement.classList.add('popap__input_invalid');
+  inputElement.classList.add(inputErrorClass);
 }
 
 // Функция отключения ошибки полей формы
-function hideError (inputElement) {
+function hideError (inputElement, inputErrorClass) {
   const errorNode = document.querySelector(`#${inputElement.id}-error`);
   errorNode.textContent = '';
-  inputElement.classList.remove('popap__input_invalid');
+  inputElement.classList.remove(inputErrorClass);
 }
 
-// Вызов функции проверки валидации
-enableValidation ({
-  formSelector: '.popap__form_add-place',
-  formInput: '.popap__input',
-  formButton: '.popap__button',
-});
+const configs = [
+  {
+    formSelector: '.popup__form_add-place',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_invalid',
+  },
+  {
+    formSelector: '.popup__form_user-info',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_invalid',
+  }
+]
 
 // Вызов функции проверки валидации
-enableValidation ({
-  formSelector: '.popap__form_user-info',
-  formInput: '.popap__input',
-  formButton: '.popap__button',
+configs.forEach(item => {
+  enableValidation (item);
 });
-
