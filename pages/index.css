@@ -55,10 +55,14 @@
 @import url(../blocks/popap/__form/popap__form.css);
 @import url(../blocks/popap/__title/popap__title.css);
 @import url(../blocks/popap/__input/popap__input.css);
+@import url(../blocks/popap/__input/_invalid/popap__input_invalid.css);
 @import url(../blocks/popap/__button/popap__button.css);
+@import url(../blocks/popap/__button/_disabled/popap__button_disabled.css);
 @import url(../blocks/popap/__close-cross/popap__close-cross.css);
 @import url(../blocks/popap/__image/popap__image.css);
 @import url(../blocks/popap/__description/popap__description.css);
 @import url(../blocks/popap/__error/popap__error.css);
 @import url(../blocks/popap/__form-set/popap__form-set.css);
+@import url(../blocks/popap/__form-field/popap__form-field.css);
+
 

@@ -21,15 +21,15 @@ const userDescription = document.querySelector('.profile__description');
 // Форма редактирования данных пользователя
 const formUserInfo = document.forms['popapFormUserInfo'];
 // Поле ввода имени
-const nameInput = formUserInfo.querySelector('#name');
+const nameInput = formUserInfo.querySelector('#name-input');
 // Поле ввода описания
-const descriptionInput = formUserInfo.querySelector('#description');
+const descriptionInput = formUserInfo.querySelector('#description-input');
 // Форма добавления картинки
 const formAddPlace = document.forms['popapFormAddPlace'];
 // Поле ввода названия картинки
-const nameInputImg = formAddPlace.querySelector('#namePlace');
+const nameInputImg = formAddPlace.querySelector('#name-place-input');
 // Поле ввода описания
-const linkInput = formAddPlace.querySelector('#link');
+const linkInput = formAddPlace.querySelector('#link-input');
 //  Шаблон карточки
 const cardTemplate = document.querySelector('#card').content;
 //Контейнер с карточками
@@ -86,7 +86,6 @@ function createCard ({link, name}) {
   return cardElement;
 }
 
-
 // Функция добавления данных из формы для формирования карточки
 function sendFormAddCardPlace (e) {
   e.preventDefault();
@@ -123,6 +122,13 @@ editButton.addEventListener('click', () => {
 
   nameInput.value = userName.textContent;
   descriptionInput.value = userDescription.textContent;
+
+  // Синхронизация состояния кнопки в зависимости от полей формы
+  toggleButton(formUserInfo, '.popap__button', '.popap__input');
+
+  // Синхронизация ошибок в зависимости от полей формы
+  const inputs = formUserInfo.querySelectorAll('.popap__input');
+  inputs.forEach(input => hideError(input));
 });
 
 // Событие клика для закрытия попапа данных пользователя
@@ -133,6 +139,16 @@ closeButtonUserInfo.addEventListener('click', () => {
 // Событие клика для открытия попапа добавления картинки
 addButton.addEventListener('click', () => {
   openPopap(popapAddPlace);
+
+  // Синхронизация состояния кнопки в зависимости от полей формы
+  toggleButton(formAddPlace, '.popap__button', '.popap__input');
+
+  // Синхронизация ошибок в зависимости от полей формы
+  const inputs = formAddPlace.querySelectorAll('.popap__input');
+  inputs.forEach(input => hideError(input));
+
+  formAddPlace.reset();
+
 });
 
 // Событие клика для закрытия попапа добавления картинки
@@ -154,45 +170,5 @@ formAddPlace.addEventListener('submit', sendFormAddCardPlace);
 
 
 
-function  editableValidation (formSelector) {
-  const form = document.querySelector(formSelector);
-
-  form.addEventListener('submit', (e) => handleForSubmit(e));
-  form.addEventListener('change', (e) => handleForInput(e));
-}
-
-/**
- * Обработать событие валидации формы
- * @param {SubmitEvent} event
- *
- */
 
 
-
-function handleForSubmit(e) {
-  e.preventDefault();
-
-  if (form.checkValidity()) {
-    alert('Valid')
-  } else {
-    alert('NotValid')
-  }
-
-}
-
-function handleForInput(e) {
-  e.preventDefault();
-  const input = e.target;
-  const errorNode = document.querySelector(`#${input.id}__error`);
-
-  if (input.validity.valid) {
-    errorNode.textContent = '';
-  } else {
-    errorNode.textContent = input.validationMessage;
-  }
-}
-
-
-
-
-editableValidation('.popap__form_add-place');
