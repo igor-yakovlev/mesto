@@ -1,11 +1,10 @@
-
 // Функция проверки валидации формы
 function  enableValidation  (config) {
   const form = document.querySelector(config.formSelector);
   const inputs = form.querySelectorAll(config.formInput);
 
   inputs.forEach(input => {
-    input.addEventListener('change', (e) => handleForInput(e, config, form));
+    input.addEventListener('input', (e) => handleForInput(e, config, form));
   });
 
   toggleButton(form, config.formButton, config.formInput);
@@ -41,7 +40,6 @@ function toggleButton (form, formButton, formInput) {
     button.disabled = false;
     button.classList.remove('popap__button_disabled');
   }
-
 }
 
 // Функция включения ошибки полей формы
@@ -58,13 +56,14 @@ function hideError (inputElement) {
   inputElement.classList.remove('popap__input_invalid');
 }
 
+// Вызов функции проверки валидации
 enableValidation ({
   formSelector: '.popap__form_add-place',
   formInput: '.popap__input',
   formButton: '.popap__button',
 });
 
-
+// Вызов функции проверки валидации
 enableValidation ({
   formSelector: '.popap__form_user-info',
   formInput: '.popap__input',
