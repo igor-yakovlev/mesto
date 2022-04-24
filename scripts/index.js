@@ -36,7 +36,8 @@ const cardTemplate = document.querySelector('#card').content;
 const cardContainer = document.querySelector('.elements__items');
 //Картинка в попапе картинки
 const popapImage = popapImagePlace.querySelector('.popap__image');
-
+//Все попапы
+const popaps = document.querySelectorAll('.popap');
 
 // Функция открытия попапа
 function openPopap (popap) {
@@ -169,6 +170,23 @@ formUserInfo.addEventListener('submit', sendFormUserInfo);
 formAddPlace.addEventListener('submit', sendFormAddCardPlace);
 
 
+// Перебор всех попапов и добавление события закрытия попапа  
+popaps.forEach(popap => {
+  popap.addEventListener('click', (e) => {
+    if (e.target.classList.contains('popap_opened')) {
+      closePopap(popap);
+    }
+  })
+})
 
-
-
+// Событие выключения попапа кнопкой "Escape"
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Escape') {
+    console.log(e.key);
+    popaps.forEach(popap => {
+      if (popap.classList.contains('popap_opened')) {
+        closePopap(popap);
+      }
+    });
+  }
+});
