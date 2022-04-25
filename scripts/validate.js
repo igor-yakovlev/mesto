@@ -1,13 +1,16 @@
 // Функция проверки валидации формы
 function  enableValidation  (config) {
-  const form = document.querySelector(config.formSelector);
-  const inputs = form.querySelectorAll(config.inputSelector);
+  const forms = document.querySelectorAll(config.formSelector);
+  forms.forEach(form => {
+    const inputs = form.querySelectorAll(config.inputSelector);
 
   inputs.forEach(input => {
     input.addEventListener('input', (e) => handleForInput(e, config, form));
   });
 
   toggleButton(form, config.submitButtonSelector, config.inputSelector , config.inactiveButtonClass);
+  });
+
 }
 
 // Функция проверки валидации поля формы
@@ -56,24 +59,10 @@ function hideError (inputElement, inputErrorClass) {
   inputElement.classList.remove(inputErrorClass);
 }
 
-const configs = [
-  {
-    formSelector: '.popup__form_add-place',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_invalid',
-  },
-  {
-    formSelector: '.popup__form_user-info',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_invalid',
-  }
-]
-
-// Вызов функции проверки валидации
-configs.forEach(item => {
-  enableValidation (item);
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_invalid',
 });
