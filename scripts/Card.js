@@ -1,19 +1,15 @@
-import {openPopup} from './utils.js';
-
-const popupImagePlace = document.querySelector('.popup_image-place');
-const popupImage = popupImagePlace.querySelector('.popup__image');
-const popupDescription = popupImagePlace.querySelector('.popup__description');
-
 export default class Card {
   _text
   _image;
   _cardSelector;
+  _handleCardClick;
   _element;
 
-  constructor(cardSelector, data) {
+  constructor(cardSelector, data, handleCardClick) {
     this._cardSelector = cardSelector;
     this._text = data.name;
     this._image = data.link;
+    this._handleCardClick = handleCardClick;
   }
 
   // Приватный метод создания разметки
@@ -23,33 +19,25 @@ export default class Card {
   }
 
   // Приватный метод добавления лайка
-  _likeClickHandler(e) {
+  _handleLike(e) {
     e.target.classList.toggle('card__like_active')
   }
   // Приватный метод удаления карточки
-  _delClickHandler() {
+  _handleDelete() {
     this._element.remove();
-  }
-
-  // Приватный метод открытия попапа картинки
-  _openPopupHandler() {
-    openPopup(popupImagePlace);
   }
 
   // Приватный метод добавления обработчиков событий
   _setEventListeners() {
 
-    this._element.querySelector('.card__like').addEventListener('click', this._likeClickHandler);
+    this._element.querySelector('.card__like').addEventListener('click', this._handleLike);
 
     this._element.querySelector('.card__delete').addEventListener('click', () => {
-      this._delClickHandler()
+      this._handleDelete()
     });
 
-    this._element.querySelector('.card__image').addEventListener('click', (e) => {
-      popupImage.src = e.target.src;
-      popupImage.alt = e.target.alt;
-      popupDescription.textContent = e.target.alt;
-      this._openPopupHandler();
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._text, this._image);
     });
 
   }
@@ -57,8 +45,11 @@ export default class Card {
   // Публичный метод возвращения карточки
   generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector('.card__image').src = this._image;
-    this._element.querySelector('.card__image').alt = this._text;
+    
+    this._cardImage = this._element.querySelector('.card__image');
+
+    this._cardImage.src = this._image;
+    this._cardImage.alt = this._text;
     this._element.querySelector('.card__title').textContent = this._text;
 
     this._setEventListeners();

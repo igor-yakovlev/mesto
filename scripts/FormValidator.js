@@ -6,6 +6,8 @@ export default class FormValidator {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+    this._submitButton = this._formElement.querySelector(this._config.submitButtonSelector);
 
   }
 
@@ -14,54 +16,58 @@ export default class FormValidator {
     e.preventDefault();
     const input = e.target;
     if (input.validity.valid) {
-      this.hideErrorHandler(input);
+      this._hideError(input);
     } else {
-      this._performErrorHandler(input);
+      this._performError(input);
     }
-    this.toggleButtonHandler();
+    this._toggleButton();
     }
 
     // Приватный метод включения ошибки полей формы
-  _performErrorHandler(inputElement) {
-    const errorNode = document.querySelector(`#${inputElement.id}-error`);
+  _performError(inputElement) {
+    const errorNode = this._formElement.querySelector(`#${inputElement.id}-error`);
     errorNode.textContent = inputElement.validationMessage;
     inputElement.classList.add(this._config.inputErrorClass);
   }
 
   // Приватный метод проверки валидации поля формы
-  _hasInvalidInputHandler(inputList) {
+  _hasInvalidInput(inputList) {
     return inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     })
   }
 
-  // Публичный метод отключения ошибки полей формы
-  hideErrorHandler(inputElement) {
-    const errorNode = document.querySelector(`#${inputElement.id}-error`);
+  // Приватный метод отключения ошибки полей формы
+  _hideError(inputElement) {
+    const errorNode = this._formElement.querySelector(`#${inputElement.id}-error`);
     errorNode.textContent = '';
     inputElement.classList.remove(this._config.inputErrorClass);
   }
 
-  // Публичный метод включения и отключения кнопки формы
-  toggleButtonHandler() {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
-    const button = this._formElement.querySelector(this._config.submitButtonSelector);
-    if (this._hasInvalidInputHandler(inputList)) {
-      button.disabled = true;
-      button.classList.add(this._config.inactiveButtonClass);
+  // Приватный метод включения и отключения кнопки формы
+  _toggleButton() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._submitButton.disabled = true;
+      this._submitButton.classList.add(this._config.inactiveButtonClass);
     } else {
-      button.disabled = false;
-      button.classList.remove(this._config.inactiveButtonClass);
+      this._submitButton.disabled = false;
+      this._submitButton.classList.remove(this._config.inactiveButtonClass);
     }
+  }
+
+  // Публичный метод включения и отключения кнопки и синхронизации полей формы
+  resetValidation() {
+    this._toggleButton();
+    this._inputList.forEach((inputElement) => {
+      this._hideError(inputElement)
+    });
   }
 
   // Публичный метод проверки валидации формы
   enableValidation() {
-    const inputs = this._formElement.querySelectorAll(this._config.inputSelector);
-    inputs.forEach(input => {
+    this._inputList.forEach(input => {
       input.addEventListener('input', (e) => this._handleForInput(e));
     });
-    this.toggleButtonHandler(this._config.submitButtonSelector, this._config.inputSelector , this._config.inactiveButtonClass);
   }
 
 }
