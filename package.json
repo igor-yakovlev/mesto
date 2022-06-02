@@ -1,0 +1,25 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "За свою жизнь мы посещаем тысячи красивых и вдохновляющих мест. Проект \"Место\" позволяет собирать эти яркие места и оставлять их в памяти навсегда!",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igor-yakovlev/mesto.git"
+  },
+  "author": "Igor Yakovlev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/igor-yakovlev/mesto/issues"
+  },
+  "homepage": "https://github.com/igor-yakovlev/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.1"
+  }
+}
