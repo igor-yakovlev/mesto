@@ -1,17 +1,21 @@
+import AdilSu from "../images/elements/__item/adil_su.jpg";
+import KavkazRocs from "../images/elements/__item/gori_kavkaz.jpg";
+import BlueLakes from "../images/elements/__item/golubie_ozera.jpg"
+
 const initialCards = [
   {
     name: 'Адыл-Су',
-    link: 'https://risk.ru/u/img/319/318712.jpeg'
+    link: AdilSu
 
   },
   {
     name: 'Кавказские горы',
-    link: './images/elements/__item/gori_kavkaz.jpg'
+    link: KavkazRocs
 
   },
   {
     name: 'Голубые озера в Кабардино-Балкарии',
-    link: './images/elements/__item/golubie_ozera.jpg'
+    link: BlueLakes
 
   },
   {
@@ -39,4 +43,6 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+export default initialCards;
 

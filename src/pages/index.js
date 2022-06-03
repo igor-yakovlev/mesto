@@ -1,10 +1,14 @@
+import './index.css';
+
+
+import initialCards from "../data/initialCards.js";
 import Card from "../components/Card.js";
 import FormValidator from '../components/FormValidator.js';
 import Section from "../components/Section.js";
 import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/popupWithForm.js";
-import UserInfo from './../components/UserInfo.js';
+import UserInfo from '../components/UserInfo.js';
 
 // Кнопка открытия попапа данных пользователя
 const editButton = document.querySelector('.profile__edit-button');

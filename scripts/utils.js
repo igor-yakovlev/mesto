@@ -1,4 +1,0 @@
-
-
-
-export {openPopup, closePopup, closeWithEscape}
