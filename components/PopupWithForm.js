@@ -9,10 +9,9 @@ export default class PopupWithForm extends Popup {
 
   _getInputValues() {
   const formData = {};
-  console.log(this._form );
-  // this._popup.querySelectorAll("input").forEach(item => {
-  //   formData[item.name] = item.value
-  // });
+  this._popup.querySelectorAll("input").forEach(item => {
+    formData[item.name] = item.value
+  });
 
   return formData;
   }
@@ -22,9 +21,15 @@ export default class PopupWithForm extends Popup {
     super.open();
   }
 
-  _setEventListeners() {
+  close() {
+    super.close();
+    this._form.reset();
+  }
+
+  setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener('submit', () => {
+    this._form.addEventListener('submit', (e) => {
+      e.preventDefault();
       this._handleFormSubmit(this._getInputValues());
     });
   }
