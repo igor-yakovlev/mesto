@@ -9,12 +9,18 @@ import PopupWithForm from "../components/popupWithForm.js";
 import UserInfo from '../components/UserInfo.js';
 import settings from '../utils/constants.js';
 
-// Кнопка открытия попапа данных пользователя
+/**
+ *  Кнопка открытия попапа данных пользователя
+ */
 const editButton = document.querySelector('.profile__edit-button');
-// Кнопка открытия попапа добавления картинки
+/**
+ *  Кнопка открытия попапа добавления картинки
+ */
 const addButton = document.querySelector('.profile__add-button');
 
-// Функция создания карточки
+/**
+ *  Функция создания карточки
+ */
 function createCard(item) {
   const cardElement = new Card('#card', item, () => {
     popupWithImage.open(item);
@@ -23,7 +29,9 @@ function createCard(item) {
   return cardElement;
 }
 
-// Класс отрисовки карточек
+/**
+ * Класс отрисовки карточек
+ */
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
@@ -33,12 +41,16 @@ const cardList = new Section({
 }, '.elements__items');
 cardList.renderItems();
 
-// Класс для открытия попапа картинки
+/**
+ *  Класс для открытия попапа картинки
+ */
 const popupWithImage = new PopupWithImage('.popup_image-place');
 popupWithImage.setEventListeners();
 
 
-// Класс для формы отправки данных и создания картинки
+/**
+ *  Класс для формы отправки данных и создания картинки
+ */
 const popupPlace = new PopupWithForm({popupSelector: '.popup_add-place', formSelector: 'popupFormAddPlace' , handleFormSubmit: (data) => {
   const cardElement = createCard(data)
   cardList.addItem(cardElement);
@@ -47,10 +59,14 @@ const popupPlace = new PopupWithForm({popupSelector: '.popup_add-place', formSel
 });
 popupPlace.setEventListeners();
 
-// Класс для данных пользователя
+/**
+ *  Класс для данных пользователя
+ */
 const userInfo = new UserInfo({userName : '.profile__name', userDescription: '.profile__description'});
 
-// Класс для формы отправки данных пользователя
+/**
+ *  Класс для формы отправки данных пользователя
+ */
 const popupUser = new PopupWithForm({popupSelector: '.popup_user-info', formSelector: 'popupFormUserInfo', handleFormSubmit: (data) => {
   userInfo.setUserInfo(data);
   popupUser.close()
@@ -58,23 +74,28 @@ const popupUser = new PopupWithForm({popupSelector: '.popup_user-info', formSele
 });
 popupUser.setEventListeners();
 
-
-
-// Событие клика для открытия попапа данных пользователя
+/**
+ *  Событие клика для открытия попапа данных пользователя
+ */
 editButton.addEventListener('click', () => {
   popupUser.open();
   const data =  userInfo.getUserInfo();
   popupUser.setInputValues(data);
-  // Синхронизация состояния кнопки в зависимости от полей формы
+  /**
+   *  Синхронизация состояния кнопки в зависимости от полей формы
+   */
   formValidators['popupFormUserInfo'].resetValidation();
 
 });
 
-
-// Событие клика для открытия попапа добавления картинки
+/**
+ *  Событие клика для открытия попапа добавления картинки
+ */
 addButton.addEventListener('click', () => {
   popupPlace.open();
-  // Синхронизация состояния кнопки в зависимости от полей формы
+  /**
+   *  Синхронизация состояния кнопки в зависимости от полей формы
+   */
   formValidators['popupFormAddPlace'].resetValidation();
 });
 
@@ -96,5 +117,15 @@ const enableValidation = (settings) => {
 enableValidation(settings);
 
 
-
+fetch(' https://nomoreparties.co/v1/cohort-43/users/me ', {
+  headers: {
+    authorization: '08cab31c-489e-4687-b8a9-d71a23c1df31'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+    const { name, about, avatar} = result
+    userInfo.setUserInfo({name: name, description: about})
+  });
 
