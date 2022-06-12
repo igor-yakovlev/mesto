@@ -8,6 +8,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/popupWithForm.js";
 import UserInfo from '../components/UserInfo.js';
 import settings from '../utils/constants.js';
+import Api from './../components/Api.js';
 
 /**
  *  Кнопка открытия попапа данных пользователя
@@ -30,36 +31,29 @@ function createCard(item) {
 }
 
 /**
- * Отрисовка карточек, полученных с сервера
+ *  Класс запроса к серверу
  */
-fetch('https://mesto.nomoreparties.co/v1/cohort-43/cards', {
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-43',
   headers: {
     authorization: '08cab31c-489e-4687-b8a9-d71a23c1df31'
   }
 })
-.then(res => res.json())
-.then(data => {
-  const cardList = new Section({
-    items: data,
-    renderer: (item) => {
-      const cardElement = createCard(item);
-      cardList.addItem(cardElement);
-    }
-  }, '.elements__items');
-  cardList.renderItems();
-})
 
 /**
- * Класс отрисовки карточек
+ * Отрисовка карточек, полученных с сервера
  */
-// const cardList = new Section({
-//   items: initialCards,
-//   renderer: (item) => {
-//     const cardElement = createCard(item);
-//     cardList.addItem(cardElement);
-//   }
-// }, '.elements__items');
-// cardList.renderItems();
+api.getInitialCards()
+  .then(data => {
+    const cardList = new Section({
+      items: data,
+      renderer: (item) => {
+        const cardElement = createCard(item);
+        cardList.addItem(cardElement);
+      }
+    }, '.elements__items');
+    cardList.renderItems();
+  })
 
 /**
  *  Класс для открытия попапа картинки
@@ -139,15 +133,8 @@ enableValidation(settings);
 /**
  * Добавление данных пользователя, полученных с сервера
  */
-fetch(' https://nomoreparties.co/v1/cohort-43/users/me ', {
-  headers: {
-    authorization: '08cab31c-489e-4687-b8a9-d71a23c1df31'
-  }
-})
-  .then(res => res.json())
+api.getUser()
   .then((result) => {
-    console.log(result);
     const { name, about, avatar} = result
     userInfo.setUserInfo({name: name, description: about})
-  });
-
+  })
