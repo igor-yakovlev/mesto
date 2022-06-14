@@ -36,23 +36,25 @@ function createCard(item) {
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-43',
   headers: {
-    authorization: '08cab31c-489e-4687-b8a9-d71a23c1df31'
+    authorization: '08cab31c-489e-4687-b8a9-d71a23c1df31',
+    'Content-type': 'application/json'
   }
 })
+
+
+const cardList = new Section(
+  (item) => {
+    const cardElement = createCard(item);
+    cardList.addItem(cardElement);
+  }, '.elements__items');
+
 
 /**
  * Отрисовка карточек, полученных с сервера
  */
 api.getInitialCards()
   .then(data => {
-    const cardList = new Section({
-      items: data,
-      renderer: (item) => {
-        const cardElement = createCard(item);
-        cardList.addItem(cardElement);
-      }
-    }, '.elements__items');
-    cardList.renderItems();
+    cardList.renderItems(data);
   })
 
 /**
@@ -66,9 +68,13 @@ popupWithImage.setEventListeners();
  *  Класс для формы отправки данных и создания картинки
  */
 const popupPlace = new PopupWithForm({popupSelector: '.popup_add-place', formSelector: 'popupFormAddPlace' , handleFormSubmit: (data) => {
-  const cardElement = createCard(data)
-  cardList.addItem(cardElement);
-  popupPlace.close()
+  api.setCard({
+    name: data.name,
+    link: data.link
+  });
+  // const cardElement = createCard(data);
+  // cardList.addItem(cardElement);
+  popupPlace.close();
   }
 });
 popupPlace.setEventListeners();
@@ -82,8 +88,12 @@ const userInfo = new UserInfo({userName : '.profile__name', userDescription: '.p
  *  Класс для формы отправки данных пользователя
  */
 const popupUser = new PopupWithForm({popupSelector: '.popup_user-info', formSelector: 'popupFormUserInfo', handleFormSubmit: (data) => {
+  api.setUser({
+    name: data.name,
+    about: data.description
+  });
   userInfo.setUserInfo(data);
-  popupUser.close()
+  popupUser.close();
   }
 });
 popupUser.setEventListeners();

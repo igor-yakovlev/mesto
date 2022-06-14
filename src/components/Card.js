@@ -9,6 +9,7 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._text = data.name;
     this._image = data.link;
+    this._likes = data.likes;
     this._handleCardClick = handleCardClick;
   }
 
@@ -45,12 +46,13 @@ export default class Card {
   // Публичный метод возвращения карточки
   generateCard() {
     this._element = this._getTemplate();
-    
+
     this._cardImage = this._element.querySelector('.card__image');
 
     this._cardImage.src = this._image;
     this._cardImage.alt = this._text;
     this._element.querySelector('.card__title').textContent = this._text;
+    this._element.querySelector('.card__likes-count').textContent = this._likes.length;
 
     this._setEventListeners();
 
