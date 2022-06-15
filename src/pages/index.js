@@ -9,6 +9,7 @@ import PopupWithForm from "../components/popupWithForm.js";
 import UserInfo from '../components/UserInfo.js';
 import settings from '../utils/constants.js';
 import Api from './../components/Api.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 
 /**
  *  Кнопка открытия попапа данных пользователя
@@ -20,12 +21,26 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
 /**
+ *  Класс для появления диалогового окна удаления карточки
+ */
+const popupConfirm = new PopupWithConfirmation('.popup_confirm');
+popupConfirm.setEventListeners();
+
+/**
  *  Функция создания карточки
  */
 function createCard(item) {
-  const cardElement = new Card('#card', item, () => {
+  const cardElement = new Card({cardSelector: '#card', data: item, handleCardClick:  () => {
     popupWithImage.open(item);
-  }).generateCard();
+  }, handleCardDelete: (elem) => {
+    popupConfirm.open();
+    popupConfirm.setSubmitHandler(
+      () => {
+        elem.remove();
+        popupConfirm.close();
+      }
+    )
+  }}).generateCard();
 
   return cardElement;
 }
@@ -78,6 +93,7 @@ const popupPlace = new PopupWithForm({popupSelector: '.popup_add-place', formSel
   }
 });
 popupPlace.setEventListeners();
+
 
 /**
  *  Класс для данных пользователя
@@ -146,5 +162,5 @@ enableValidation(settings);
 api.getUser()
   .then((result) => {
     const { name, about, avatar} = result;
-    userInfo.setUserInfo({name: name, description: about});
+    userInfo.setUserInfo({name: name, description: about, avatar: avatar});
   });

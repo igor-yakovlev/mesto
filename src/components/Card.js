@@ -5,12 +5,13 @@ export default class Card {
   _handleCardClick;
   _element;
 
-  constructor(cardSelector, data, handleCardClick) {
+  constructor({cardSelector, data, handleCardClick, handleCardDelete}) {
     this._cardSelector = cardSelector;
     this._text = data.name;
     this._image = data.link;
     this._likes = data.likes;
     this._handleCardClick = handleCardClick;
+    this._handleCardDelete = handleCardDelete;
   }
 
   // Приватный метод создания разметки
@@ -25,7 +26,7 @@ export default class Card {
   }
   // Приватный метод удаления карточки
   _handleDelete() {
-    this._element.remove();
+    this._handleCardDelete(this._element);
   }
 
   // Приватный метод добавления обработчиков событий
