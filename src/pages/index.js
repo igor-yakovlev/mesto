@@ -55,7 +55,7 @@ const cardList = new Section(
 api.getInitialCards()
   .then(data => {
     cardList.renderItems(data);
-  })
+  });
 
 /**
  *  Класс для открытия попапа картинки
@@ -82,7 +82,7 @@ popupPlace.setEventListeners();
 /**
  *  Класс для данных пользователя
  */
-const userInfo = new UserInfo({userName : '.profile__name', userDescription: '.profile__description'});
+const userInfo = new UserInfo({userName : '.profile__name', userDescription: '.profile__description', userAvatar: '.profile__avatar'});
 
 /**
  *  Класс для формы отправки данных пользователя
@@ -145,6 +145,6 @@ enableValidation(settings);
  */
 api.getUser()
   .then((result) => {
-    const { name, about, avatar} = result
-    userInfo.setUserInfo({name: name, description: about})
-  })
+    const { name, about, avatar} = result;
+    userInfo.setUserInfo({name: name, description: about});
+  });

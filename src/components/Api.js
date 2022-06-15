@@ -14,6 +14,9 @@ export default class Api {
       }
       return Promise.reject(`Ошибка ${res.status}`);
     })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   setCard(data) {
@@ -31,6 +34,9 @@ export default class Api {
       }
       return Promise.reject(`Ошибка ${res.status}`);
     })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   getUser() {
@@ -43,6 +49,9 @@ export default class Api {
       }
       return Promise.reject(`Ошибка ${res.status}`);
     })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   setUser(data) {
@@ -60,6 +69,9 @@ export default class Api {
       }
       return Promise.reject(`Ошибка ${res.status}`);
     })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 }
 

@@ -21,7 +21,7 @@ export default class Card {
 
   // Приватный метод добавления лайка
   _handleLike(e) {
-    e.target.classList.toggle('card__like_active')
+    e.target.classList.toggle('card__like_active');
   }
   // Приватный метод удаления карточки
   _handleDelete() {
