@@ -26,29 +26,11 @@ const addButton = document.querySelector('.profile__add-button');
 const popupConfirm = new PopupWithConfirmation('.popup_confirm');
 popupConfirm.setEventListeners();
 
-/**
- *  Функция создания карточки
- */
-function createCard(item) {
-  const cardElement = new Card({cardSelector: '#card', data: item, handleCardClick:  () => {
-    popupWithImage.open(item);
-  }, handleCardDelete: (elem) => {
-    popupConfirm.open();
-    popupConfirm.setSubmitHandler(
-      () => {
-        elem.remove();
-        popupConfirm.close();
-      }
-    )
-  }}).generateCard();
-
-  return cardElement;
-}
 
 /**
  *  Класс запроса к серверу
  */
-const api = new Api({
+ const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-43',
   headers: {
     authorization: '08cab31c-489e-4687-b8a9-d71a23c1df31',
@@ -56,6 +38,32 @@ const api = new Api({
   }
 })
 
+
+/**
+ *  Функция создания карточки
+ */
+function createCard(item) {
+  const cardElement = new Card({cardSelector: '#card', data: item,
+  handleCardClick:  () => {
+    popupWithImage.open(item);
+  },
+  handleCardDelete: (elem) => {
+    popupConfirm.open();
+    popupConfirm.setSubmitHandler(
+      () => {
+        api.deleteCard(item._id)
+        .then(res => {
+          elem.remove();
+          popupConfirm.close();
+        })
+      }
+    )
+  },
+  handleUserData: getUserData
+}).generateCard();
+
+  return cardElement;
+}
 
 const cardList = new Section(
   (item) => {
@@ -65,12 +73,18 @@ const cardList = new Section(
 
 
 /**
+ * Получение массива карточек с сервера
+ */
+function getCardsData () {
+  return api.getInitialCards();
+}
+
+/**
  * Отрисовка карточек, полученных с сервера
  */
-api.getInitialCards()
-  .then(data => {
-    cardList.renderItems(data);
-  });
+// getCardsData().then(data => {
+//     cardList.renderItems(data);
+//   });
 
 /**
  *  Класс для открытия попапа картинки
@@ -86,10 +100,13 @@ const popupPlace = new PopupWithForm({popupSelector: '.popup_add-place', formSel
   api.setCard({
     name: data.name,
     link: data.link
-  });
-  // const cardElement = createCard(data);
-  // cardList.addItem(cardElement);
-  popupPlace.close();
+  })
+  .then(res => {
+    const cardElement = createCard(res);
+    cardList.addItem(cardElement);
+    popupPlace.close();
+  })
+
   }
 });
 popupPlace.setEventListeners();
@@ -100,6 +117,19 @@ popupPlace.setEventListeners();
  */
 const userInfo = new UserInfo({userName : '.profile__name', userDescription: '.profile__description', userAvatar: '.profile__avatar'});
 
+
+Promise.all([api.getUser(), api.getInitialCards()])
+  .then(([userData, cardInfo]) => {
+
+    cardList.renderItems(cardInfo);
+
+
+    const { name, about, avatar} = userData;
+    userInfo.setUserInfo({name: name, about: about, avatar: avatar});
+  })
+
+
+
 /**
  *  Класс для формы отправки данных пользователя
  */
@@ -107,9 +137,12 @@ const popupUser = new PopupWithForm({popupSelector: '.popup_user-info', formSele
   api.setUser({
     name: data.name,
     about: data.description
-  });
-  userInfo.setUserInfo(data);
-  popupUser.close();
+  })
+  .then(res => {
+    userInfo.setUserInfo(res);
+    popupUser.close();
+  })
+
   }
 });
 popupUser.setEventListeners();
@@ -157,10 +190,18 @@ const enableValidation = (settings) => {
 enableValidation(settings);
 
 /**
+ * Получение данных пользователя с сервера
+ */
+
+function getUserData () {
+  return api.getUser()
+}
+
+/**
  * Добавление данных пользователя, полученных с сервера
  */
-api.getUser()
-  .then((result) => {
-    const { name, about, avatar} = result;
-    userInfo.setUserInfo({name: name, description: about, avatar: avatar});
-  });
+// getUserData()
+// .then((result) => {
+//   const { name, about, avatar} = result;
+//   userInfo.setUserInfo({name: name, about: about, avatar: avatar});
+// });

@@ -1,5 +1,6 @@
 .card__delete {
   position: absolute;
+  visibility: hidden;
   top: 20px;
   right: 20px;
   margin: 0;

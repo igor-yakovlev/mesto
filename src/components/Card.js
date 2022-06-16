@@ -5,13 +5,15 @@ export default class Card {
   _handleCardClick;
   _element;
 
-  constructor({cardSelector, data, handleCardClick, handleCardDelete}) {
+  constructor({cardSelector, data, handleCardClick, handleCardDelete, handleUserData}) {
     this._cardSelector = cardSelector;
     this._text = data.name;
     this._image = data.link;
     this._likes = data.likes;
+    this._ownerId = data.owner._id;
     this._handleCardClick = handleCardClick;
     this._handleCardDelete = handleCardDelete;
+    this._handleUserData = handleUserData;
   }
 
   // Приватный метод создания разметки
@@ -21,9 +23,12 @@ export default class Card {
   }
 
   // Приватный метод добавления лайка
-  _handleLike(e) {
-    e.target.classList.toggle('card__like_active');
+  _setLike(e) {
+    e.target.classList.add('card__like_active');
   }
+
+  
+
   // Приватный метод удаления карточки
   _handleDelete() {
     this._handleCardDelete(this._element);
@@ -31,10 +36,11 @@ export default class Card {
 
   // Приватный метод добавления обработчиков событий
   _setEventListeners() {
+    this._element.querySelector('.card__like').addEventListener('click', this._setLike);
 
-    this._element.querySelector('.card__like').addEventListener('click', this._handleLike);
+    this._deleteButton = this._element.querySelector('.card__delete');
 
-    this._element.querySelector('.card__delete').addEventListener('click', () => {
+    this._deleteButton.addEventListener('click', () => {
       this._handleDelete()
     });
 
@@ -46,6 +52,14 @@ export default class Card {
 
   // Публичный метод возвращения карточки
   generateCard() {
+
+    this._handleUserData()
+      .then(res => {
+        if (res._id === this._ownerId) {
+          this._deleteButton.classList.add('card__delete_show');
+        }
+      })
+
     this._element = this._getTemplate();
 
     this._cardImage = this._element.querySelector('.card__image');
@@ -53,6 +67,9 @@ export default class Card {
     this._cardImage.src = this._image;
     this._cardImage.alt = this._text;
     this._element.querySelector('.card__title').textContent = this._text;
+
+
+
     this._element.querySelector('.card__likes-count').textContent = this._likes.length;
 
     this._setEventListeners();
