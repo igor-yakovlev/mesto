@@ -63,20 +63,6 @@ export default class Card {
 
   // Публичный метод возвращения карточки
   generateCard() {
-    this._handleUserData()
-      .then(res => {
-        if (res._id === this._ownerId) {
-          this._deleteButton.classList.add('card__delete_show');
-        }
-
-        if (this._likes.some(item => item._id === res._id)) {
-          this._isLiked = true;
-          this._likeButton.classList.add('card__like_active');
-        } else {
-          this._isLiked = false;
-        }
-      })
-
     this._element = this._getTemplate();
 
     this._cardImage = this._element.querySelector('.card__image');
@@ -87,6 +73,18 @@ export default class Card {
     this._element.querySelector('.card__likes-count').textContent = this._likes.length;
 
     this._setEventListeners();
+
+    if (this._handleUserData._id === this._ownerId) {
+      this._deleteButton.classList.add('card__delete_show');
+    }
+
+    if (this._likes.some(item => item._id === this._handleUserData._id)) {
+      this._isLiked = true;
+      this._likeButton.classList.add('card__like_active');
+    } else {
+      this._isLiked = false;
+    }
+
 
     return this._element;
   }
