@@ -59,10 +59,23 @@ function createCard(item) {
       }
     )
   },
+  handleCardLike: () => {
+    if (cardElement._isLiked) {
+      api.deleteLike(item._id)
+      .then(res => {
+        cardElement._removeLike(res.likes)
+      })
+    } else {
+      api.setLike(item._id)
+        .then(res => {
+          cardElement._setLike(res.likes)
+        })
+    }
+  },
   handleUserData: getUserData
-}).generateCard();
+})
 
-  return cardElement;
+  return cardElement.generateCard();
 }
 
 const cardList = new Section(
@@ -122,7 +135,6 @@ Promise.all([api.getUser(), api.getInitialCards()])
   .then(([userData, cardInfo]) => {
 
     cardList.renderItems(cardInfo);
-
 
     const { name, about, avatar} = userData;
     userInfo.setUserInfo({name: name, about: about, avatar: avatar});
