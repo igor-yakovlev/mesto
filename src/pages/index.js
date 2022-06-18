@@ -36,6 +36,9 @@ const addButton = document.querySelector('.profile__add-button');
   }
 });
 
+/**
+ *  Получение данных пользователя и карточек
+ */
 Promise.all([api.getUser(), api.getInitialCards()])
   .then(([userData, cardInfo]) => {
 
@@ -79,7 +82,7 @@ Promise.all([api.getUser(), api.getInitialCards()])
   }
 
   /**
-   *  Класс добавления карточки в разметку карточки
+   *  Класс добавления карточки в разметку
    */
   const cardList = new Section(
     (item) => {
@@ -87,12 +90,12 @@ Promise.all([api.getUser(), api.getInitialCards()])
       cardList.addItem(cardElement);
     }, '.elements__items');
 
+    cardList.renderItems(cardInfo);
   /**
-   *  Класс для появления диалогового окна удаления карточки
+   *  Класс диалогового окна удаления карточки
    */
   const popupConfirm = new PopupWithConfirmation('.popup_confirm');
   popupConfirm.setEventListeners();
-
 
   /**
    *  Класс для открытия попапа картинки
@@ -100,25 +103,22 @@ Promise.all([api.getUser(), api.getInitialCards()])
   const popupWithImage = new PopupWithImage('.popup_image-place');
   popupWithImage.setEventListeners();
 
-
-   /**
+  /**
    *  Класс для формы отправки данных и смены аватара
    */
-   const popupAvatar = new PopupWithForm({popupSelector: '.popup_change-avatar', formSelector: 'popupFormChangeAvatar' , handleFormSubmit: (data) => {
+  const popupAvatar = new PopupWithForm({popupSelector: '.popup_change-avatar', formSelector: 'popupFormChangeAvatar' , handleFormSubmit: (data) => {
     popupAvatar.renderButtonText('Сохранение');
-     api.setAvatar({
+    api.setAvatar({
       avatar: data.avatar
-     })
-     .then(res => {
+    })
+    .then(res => {
       userInfo.changeAvatar(res.avatar);
       popupAvatar.close();
-     })
-     .finally(() => popupAvatar.renderButtonText('Сохранить'))
-   }
-   });
-   popupAvatar.setEventListeners();
-
-
+    })
+    .finally(() => popupAvatar.renderButtonText('Сохранить'))
+  }
+  });
+  popupAvatar.setEventListeners();
 
   /**
    *  Класс для формы отправки данных и создания картинки
@@ -140,12 +140,13 @@ Promise.all([api.getUser(), api.getInitialCards()])
   });
   popupPlace.setEventListeners();
 
-
   /**
-   *  Класс для данных пользователя
+   *  Класс для работы с данными пользователя
    */
   const userInfo = new UserInfo({userName : '.profile__name', userDescription: '.profile__description', userAvatar: '.profile__avatar'});
 
+  const { name, about, avatar} = userData;
+  userInfo.setUserInfo({name: name, about: about, avatar: avatar});
   /**
    *  Класс для формы отправки данных пользователя
    */
@@ -191,6 +192,9 @@ Promise.all([api.getUser(), api.getInitialCards()])
     formValidators['popupFormAddPlace'].resetValidation();
   });
 
+  /**
+   *  Событие клика для смены аватара
+   */
   avatarButton.addEventListener('click', () => {
     popupAvatar.open();
     /**
@@ -202,6 +206,10 @@ Promise.all([api.getUser(), api.getInitialCards()])
 
   const formValidators = {};
 
+
+  /**
+   *  Функция для работы с валидацией
+   */
   const enableValidation = (settings) => {
     const formList = Array.from(document.querySelectorAll(settings.formSelector));
     formList.forEach((formElement) => {
@@ -213,12 +221,6 @@ Promise.all([api.getUser(), api.getInitialCards()])
       validator.enableValidation();
     })
   }
-
   enableValidation(settings);
-
-
-  cardList.renderItems(cardInfo);
-
-  const { name, about, avatar} = userData;
-  userInfo.setUserInfo({name: name, about: about, avatar: avatar});
+  
   });
