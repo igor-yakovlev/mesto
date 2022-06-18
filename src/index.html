@@ -132,6 +132,37 @@
           </form>
         </div>
       </div>
+      <div class="popup popup_change-avatar">
+        <div class="popup__container">
+          <h2 class="popup__title">Обновить аватар</h2>
+          <form action="#" method="post" name="popupFormChangeAvatar" class="popup__form popup__form_change-avatar">
+            <fieldset class="popup__form-set">
+              <button
+                aria-label="Close popup"
+                type="button"
+                class="popup__close-cross">
+              </button>
+              <label class="popup__form-field" for="link">
+                <input
+                  type="url"
+                  name="link"
+                  id="link-input"
+                  class="popup__input"
+                  placeholder="Ссылка на картинку"
+                  required
+                />
+                <span id="link-input-error" class="popup__error"></span>
+              </label>
+              <button
+                aria-label="Submit form"
+                type="submit"
+                class="popup__button popup__button_change-avatar">
+                Сохранить
+              </button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
       <div class="popup popup_image-place">
         <div class="popup__container popup__container_has-image">
           <button aria-label="Close popup" type="button" class="popup__close-cross"></button>

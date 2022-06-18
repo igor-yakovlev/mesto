@@ -5,7 +5,8 @@ import Card from "../components/Card.js";
 import FormValidator from '../components/FormValidator.js';
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithForm from "../components/popupWithForm.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithAvatar from "../components/PopupWithAvatar.js";
 import UserInfo from '../components/UserInfo.js';
 import settings from '../utils/constants.js';
 import Api from './../components/Api.js';
@@ -19,6 +20,11 @@ const editButton = document.querySelector('.profile__edit-button');
  *  Кнопка открытия попапа добавления картинки
  */
 const addButton = document.querySelector('.profile__add-button');
+
+/**
+ *  Кнопка открытия попапа добавления картинки
+ */
+ const avatarButton = document.querySelector('.profile__avatar');
 
 
 /**
@@ -74,6 +80,9 @@ Promise.all([api.getUser(), api.getInitialCards()])
     return cardElement.generateCard();
   }
 
+  /**
+   *  Класс добавления карточки в разметку карточки
+   */
   const cardList = new Section(
     (item) => {
       const cardElement = createCard(item);
@@ -92,6 +101,17 @@ Promise.all([api.getUser(), api.getInitialCards()])
    */
   const popupWithImage = new PopupWithImage('.popup_image-place');
   popupWithImage.setEventListeners();
+
+
+   /**
+   *  Класс для формы отправки данных и создания картинки
+   */
+   const popupAvatar = new PopupWithAvatar({popupSelector: '.popup_change-avatar', formSelector: 'popupFormChangeAvatar' , handleFormSubmit: (data) => {
+     console.log(data);
+   }
+   });
+   popupAvatar.setEventListeners();
+
 
 
   /**
@@ -159,6 +179,10 @@ Promise.all([api.getUser(), api.getInitialCards()])
      */
     formValidators['popupFormAddPlace'].resetValidation();
   });
+
+  avatarButton.addEventListener('click', () => {
+    popupAvatar.open();
+  })
 
 
   const formValidators = {};
