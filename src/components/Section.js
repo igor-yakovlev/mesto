@@ -9,7 +9,7 @@ export default class Section {
   }
 
   renderItems(items) {
-    items.map(item => {
+    items.reverse().map(item => {
       return this._renderer(item);
     });
   }

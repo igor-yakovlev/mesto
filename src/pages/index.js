@@ -59,6 +59,9 @@ Promise.all([api.getUser(), api.getInitialCards()])
             elem.remove();
             popupConfirm.close();
           })
+          .catch((err) => {
+            console.log(err);
+          })
         }
       )
     },
@@ -66,12 +69,18 @@ Promise.all([api.getUser(), api.getInitialCards()])
       if (cardElement._isLiked) {
         api.deleteLike(item._id)
         .then(res => {
-          cardElement._removeLike(res.likes)
+          cardElement.removeLike(res.likes)
+        })
+        .catch((err) => {
+          console.log(err);
         })
       } else {
         api.setLike(item._id)
           .then(res => {
-            cardElement._setLike(res.likes)
+            cardElement.setLike(res.likes)
+          })
+          .catch((err) => {
+            console.log(err);
           })
       }
     },
@@ -115,6 +124,9 @@ Promise.all([api.getUser(), api.getInitialCards()])
       userInfo.changeAvatar(res.avatar);
       popupAvatar.close();
     })
+    .catch((err) => {
+      console.log(err);
+    })
     .finally(() => popupAvatar.renderButtonText('Сохранить'))
   }
   });
@@ -133,6 +145,9 @@ Promise.all([api.getUser(), api.getInitialCards()])
       const cardElement = createCard(res);
       cardList.addItem(cardElement);
       popupPlace.close();
+    })
+    .catch((err) => {
+      console.log(err);
     })
     .finally(() => popupPlace.renderButtonText('Создать'))
 
@@ -159,6 +174,9 @@ Promise.all([api.getUser(), api.getInitialCards()])
     .then(res => {
       userInfo.setUserInfo(res);
       popupUser.close();
+    })
+    .catch((err) => {
+      console.log(err);
     })
     .finally(() => popupUser.renderButtonText('Сохранить'))
 
@@ -222,5 +240,8 @@ Promise.all([api.getUser(), api.getInitialCards()])
     })
   }
   enableValidation(settings);
-  
+
+  })
+  .catch((err) => {
+    console.log(err);
   });

@@ -25,14 +25,14 @@ export default class Card {
 
 
   // Приватный метод добавления лайка
-  _setLike(likes) {
+  setLike(likes) {
     this._likeButton.classList.add('card__like_active');
     this._isLiked = true;
     this._element.querySelector('.card__likes-count').textContent = likes.length;
 
   }
 
-  _removeLike(likes) {
+  removeLike(likes) {
     this._likeButton.classList.remove('card__like_active');
     this._isLiked = false;
     this._element.querySelector('.card__likes-count').textContent = likes.length;
