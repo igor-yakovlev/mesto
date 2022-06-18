@@ -17,11 +17,13 @@
       <main class="main">
         <section class="profile">
           <div class="profile__info-wrapper">
-            <img
+            <div class="profile__avatar-wrapper">
+              <img
               src="<%=require('./images/profile/profile__avatar.jpg')%>"
               alt="Аватар"
               class="profile__avatar"
-            />
+              />
+            </div>
             <div class="profile__info">
               <div class="profile__name-wrapper">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -142,10 +144,10 @@
                 type="button"
                 class="popup__close-cross">
               </button>
-              <label class="popup__form-field" for="link">
+              <label class="popup__form-field" for="name">
                 <input
                   type="url"
-                  name="link"
+                  name="avatar"
                   id="link-input"
                   class="popup__input"
                   placeholder="Ссылка на картинку"

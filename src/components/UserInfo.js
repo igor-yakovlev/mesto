@@ -21,4 +21,8 @@ export default class UserInfo {
     this._info.textContent = about;
     this._avatar.src = avatar;
   }
+
+  changeAvatar(avatar) {
+    this._avatar.src = avatar;
+  }
 }

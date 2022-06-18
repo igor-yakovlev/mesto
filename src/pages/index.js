@@ -1,12 +1,10 @@
 import './index.css';
 
-import initialCards from "../data/initialCards.js";
 import Card from "../components/Card.js";
 import FormValidator from '../components/FormValidator.js';
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithAvatar from "../components/PopupWithAvatar.js";
 import UserInfo from '../components/UserInfo.js';
 import settings from '../utils/constants.js';
 import Api from './../components/Api.js';
@@ -24,7 +22,7 @@ const addButton = document.querySelector('.profile__add-button');
 /**
  *  Кнопка открытия попапа добавления картинки
  */
- const avatarButton = document.querySelector('.profile__avatar');
+ const avatarButton = document.querySelector('.profile__avatar-wrapper');
 
 
 /**
@@ -104,10 +102,18 @@ Promise.all([api.getUser(), api.getInitialCards()])
 
 
    /**
-   *  Класс для формы отправки данных и создания картинки
+   *  Класс для формы отправки данных и смены аватара
    */
-   const popupAvatar = new PopupWithAvatar({popupSelector: '.popup_change-avatar', formSelector: 'popupFormChangeAvatar' , handleFormSubmit: (data) => {
-     console.log(data);
+   const popupAvatar = new PopupWithForm({popupSelector: '.popup_change-avatar', formSelector: 'popupFormChangeAvatar' , handleFormSubmit: (data) => {
+    popupAvatar.renderButtonText('Сохранение');
+     api.setAvatar({
+      avatar: data.avatar
+     })
+     .then(res => {
+      userInfo.changeAvatar(res.avatar);
+      popupAvatar.close();
+     })
+     .finally(() => popupAvatar.renderButtonText('Сохранить'))
    }
    });
    popupAvatar.setEventListeners();
@@ -118,6 +124,7 @@ Promise.all([api.getUser(), api.getInitialCards()])
    *  Класс для формы отправки данных и создания картинки
    */
   const popupPlace = new PopupWithForm({popupSelector: '.popup_add-place', formSelector: 'popupFormAddPlace' , handleFormSubmit: (data) => {
+    popupPlace.renderButtonText('Создание');
     api.setCard({
       name: data.name,
       link: data.link
@@ -127,6 +134,7 @@ Promise.all([api.getUser(), api.getInitialCards()])
       cardList.addItem(cardElement);
       popupPlace.close();
     })
+    .finally(() => popupPlace.renderButtonText('Создать'))
 
     }
   });
@@ -142,6 +150,7 @@ Promise.all([api.getUser(), api.getInitialCards()])
    *  Класс для формы отправки данных пользователя
    */
   const popupUser = new PopupWithForm({popupSelector: '.popup_user-info', formSelector: 'popupFormUserInfo', handleFormSubmit: (data) => {
+    popupUser.renderButtonText('Сохранение');
     api.setUser({
       name: data.name,
       about: data.description
@@ -150,10 +159,12 @@ Promise.all([api.getUser(), api.getInitialCards()])
       userInfo.setUserInfo(res);
       popupUser.close();
     })
+    .finally(() => popupUser.renderButtonText('Сохранить'))
 
     }
   });
   popupUser.setEventListeners();
+
 
   /**
    *  Событие клика для открытия попапа данных пользователя
@@ -182,6 +193,10 @@ Promise.all([api.getUser(), api.getInitialCards()])
 
   avatarButton.addEventListener('click', () => {
     popupAvatar.open();
+    /**
+     *  Синхронизация состояния кнопки в зависимости от полей формы
+     */
+    formValidators['popupFormChangeAvatar'].resetValidation();
   })
 
 
@@ -202,8 +217,8 @@ Promise.all([api.getUser(), api.getInitialCards()])
   enableValidation(settings);
 
 
-    cardList.renderItems(cardInfo);
+  cardList.renderItems(cardInfo);
 
-    const { name, about, avatar} = userData;
-    userInfo.setUserInfo({name: name, about: about, avatar: avatar});
+  const { name, about, avatar} = userData;
+  userInfo.setUserInfo({name: name, about: about, avatar: avatar});
   });
